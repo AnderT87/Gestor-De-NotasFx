@@ -18,12 +18,12 @@ public class Asignaturas implements IAsignaturas {
         asignaturas = new ArrayList<>();
     }
 
-    // ✔ Agregar nueva asignatura
+    
     public void agregar(Asignatura asignatura) {
         asignaturas.add(asignatura);
     }
 
-    // ✔ Actualizar asignatura existente
+    
     public void actualizar(Asignatura asignaturaActualizada) {
         for (int i = 0; i < asignaturas.size(); i++) {
             Asignatura a = asignaturas.get(i);
@@ -34,12 +34,12 @@ public class Asignaturas implements IAsignaturas {
         }
     }
 
-    // ✔ Eliminar por código
+    
     public void eliminar(int codigoAsignatura) {
         asignaturas.removeIf(a -> a.getCodigoAsignatura() == codigoAsignatura);
     }
 
-    // ✔ Obtener una asignatura por código
+    
     public Asignatura obtener(int codigoAsignatura) {
         for (Asignatura a : asignaturas) {
             if (a.getCodigoAsignatura() == codigoAsignatura) {
@@ -49,7 +49,7 @@ public class Asignaturas implements IAsignaturas {
         return null;
     }
 
-    // ✔ Obtener todas
+    
     public ArrayList<Asignatura> obtenerTodos() {
         return asignaturas;
     }

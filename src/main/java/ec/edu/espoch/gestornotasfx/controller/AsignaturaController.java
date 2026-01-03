@@ -23,11 +23,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class AsignaturaController {
 
-    // ================= MODELO =================
+    
     private Asignaturas asignaturas = new Asignaturas();
     private ObservableList<Asignatura> listaObservable;
 
-    // ================= CAMPOS =================
+    
     @FXML
     private TextField txtCodigo;
     @FXML
@@ -37,7 +37,7 @@ public class AsignaturaController {
     @FXML
     private TextField txtPeriodo;
 
-    // ================= TABLA =================
+    
     @FXML
     private TableView<Asignatura> tablaAsignaturas;
     @FXML
@@ -49,10 +49,10 @@ public class AsignaturaController {
     @FXML
     private TableColumn<Asignatura, String> colPeriodo;
 
-    // ================= INIT =================
+    
     @FXML
     private void menuDocentes() {
-        // Llama al método de App pasándole el nombre del FXML de docentes
+        
         App.cambiarVista("view-docentes");
     }
 
@@ -68,7 +68,7 @@ public class AsignaturaController {
 
     @FXML
     private void menuAsigEstudiantes() {
-        // Asumiendo que esta es la vista de notas
+        
         App.cambiarVista("view-notas");
     }
 
@@ -87,7 +87,7 @@ public class AsignaturaController {
         tablaAsignaturas.setItems(listaObservable);
     }
 
-    // ================= AGREGAR =================
+    
     @FXML
     private void agregar() {
         Asignatura a = new Asignatura(
@@ -102,7 +102,7 @@ public class AsignaturaController {
         limpiarCampos();
     }
 
-    // ================= BUSCAR (por código) =================
+    
     @FXML
     private void buscar() {
         int codigo = Integer.parseInt(txtCodigo.getText());
@@ -115,7 +115,7 @@ public class AsignaturaController {
         }
     }
 
-    // ================= ACTUALIZAR =================
+    
     @FXML
     private void actualizar() {
         Asignatura a = new Asignatura(
@@ -130,7 +130,7 @@ public class AsignaturaController {
         limpiarCampos();
     }
 
-    // ================= ELIMINAR =================
+    
     @FXML
     private void eliminar() {
         int codigo = Integer.parseInt(txtCodigo.getText());
@@ -139,7 +139,7 @@ public class AsignaturaController {
         limpiarCampos();
     }
 
-    // ================= UTILIDADES =================
+    
     private void actualizarTabla() {
         listaObservable.setAll(asignaturas.obtenerTodos());
     }

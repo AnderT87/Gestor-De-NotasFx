@@ -24,7 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class DocentesController {
     
-     // ====== MODELO ======
+     
     private IDocentes docentes;
      private ObservableList<Docente> listaObservable;
     @FXML
@@ -46,7 +46,7 @@ public class DocentesController {
     
     @FXML
     private void menuDocentes() {
-        // Llama al método de App pasándole el nombre del FXML de docentes
+        
         App.cambiarVista("view-docentes");
     }
 
@@ -62,7 +62,7 @@ public class DocentesController {
 
     @FXML
     private void menuAsigEstudiantes() {
-        // Asumiendo que esta es la vista de notas
+        
         App.cambiarVista("view-notas");
     }
 
@@ -80,7 +80,7 @@ public class DocentesController {
     private TableColumn<Docente, String> colTitulo;
     
    
-    // ====== INIT ======
+    
     @FXML
     private void initialize() {
         colCedula.setCellValueFactory(new PropertyValueFactory<>("cedula"));
@@ -95,7 +95,7 @@ public class DocentesController {
         refrescarTabla();
     }
 
-    // ====== AGREGAR ======
+    
     @FXML
     private void agregar() {
 
@@ -124,7 +124,7 @@ public class DocentesController {
         limpiarCampos();
     }
 
-    // ====== BUSCAR (SOLO POR CÉDULA) ======
+    
     @FXML
     private void buscar() {
 
@@ -148,7 +148,7 @@ public class DocentesController {
         }
     }
 
-    // ====== ACTUALIZAR ======
+    
     @FXML
     private void actualizar() {
 
@@ -172,7 +172,7 @@ public class DocentesController {
         mostrarAlerta("Éxito", "Docente actualizado");
     }
 
-    // ====== ELIMINAR ======
+    
     @FXML
     private void eliminar() {
 
@@ -187,7 +187,7 @@ public class DocentesController {
         }
     }
 
-    // ====== UTILIDADES ======
+    
     private void limpiarCampos() {
         txtCedula.clear();
         txtNombre.clear();
@@ -197,7 +197,7 @@ public class DocentesController {
     }
 
     private void refrescarTabla() {
-        // Borra lo que hay en la lista de la tabla y trae lo último del modelo
+        
         if (docentes != null && docentes.obtenerTodos()!= null) {
             listaObservable.setAll(docentes.obtenerTodos());
         }

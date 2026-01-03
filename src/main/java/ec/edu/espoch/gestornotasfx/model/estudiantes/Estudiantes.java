@@ -18,12 +18,12 @@ public class Estudiantes implements IEstudiantes {
         estudiantes = new ArrayList<>();
     }
 
-    // ✔ Agregar nuevo estudiante
+    
     public void agregar(Estudiante estudiante) {
         estudiantes.add(estudiante);
     }
 
-    // ✔ Actualizar estudiante existente
+    
     public void actualizar(Estudiante estudianteActualizado) {
         for (int i = 0; i < estudiantes.size(); i++) {
             Estudiante e = estudiantes.get(i);
@@ -34,12 +34,12 @@ public class Estudiantes implements IEstudiantes {
         }
     }
 
-    // ✔ Eliminar estudiante por código
+    
     public void eliminar(int codigoEstudiante) {
         estudiantes.removeIf(e -> e.getCodigoEstudiante() == codigoEstudiante);
     }
 
-    // ✔ Obtener un estudiante por código
+    
     public Estudiante obtener(int codigoEstudiante) {
         for (Estudiante e : estudiantes) {
             if (e.getCodigoEstudiante() == codigoEstudiante) {
@@ -49,7 +49,7 @@ public class Estudiantes implements IEstudiantes {
         return null;
     }
 
-    // ✔ Obtener todos los estudiantes
+    
     public List<Estudiante> obtenerTodos() {
         return estudiantes;
     }

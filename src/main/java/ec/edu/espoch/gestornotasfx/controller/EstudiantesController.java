@@ -50,7 +50,7 @@ public class EstudiantesController {
 
     @FXML
     private void menuDocentes() {
-        // Llama al método de App pasándole el nombre del FXML de docentes
+        
         App.cambiarVista("view-docentes");
     }
 
@@ -66,13 +66,13 @@ public class EstudiantesController {
 
     @FXML
     private void menuAsigEstudiantes() {
-        // Asumiendo que esta es la vista de notas
+        
         App.cambiarVista("view-notas");
     }
 
     @FXML
     private void initialize() {
-        // CORRECCIÓN: Cada columna debe tener su propiedad correspondiente
+        
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoEstudiante"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreEstudiante"));
         colApellido.setCellValueFactory(new PropertyValueFactory<>("apellidoEstudiantes"));
@@ -82,11 +82,11 @@ public class EstudiantesController {
         tablaEstudiantes.setItems(listaObservable);
         modelo = new Estudiantes();
 
-        // Opcional: Cargar los datos que ya existan al abrir la ventana
+        
         refrescarTabla();
     }
 
-    /* ================= AGREGAR ================= */
+    
     @FXML
     private void agregar() {
         try {
@@ -101,9 +101,9 @@ public class EstudiantesController {
 
             modelo.agregar(e);
 
-            // ¡ESTO FALTA!: Añadirlo visualmente a la tabla
+            
             listaObservable.add(e);
-            // O si prefieres traer todo del modelo: refrescarTabla();
+            
             refrescarTabla();
             mostrarInfo("Estudiante agregado correctamente");
             limpiarCampos();
@@ -113,7 +113,7 @@ public class EstudiantesController {
         }
     }
 
-    /* ================= BUSCAR (SOLO CÓDIGO) ================= */
+    
     @FXML
     private void buscar() {
         try {
@@ -133,7 +133,7 @@ public class EstudiantesController {
         }
     }
 
-    /* ================= ACTUALIZAR ================= */
+    
     @FXML
     private void actualizar() {
         try {
@@ -156,7 +156,7 @@ public class EstudiantesController {
         }
     }
 
-    /* ================= ELIMINAR ================= */
+    
     @FXML
     private void eliminar() {
         try {
@@ -170,7 +170,7 @@ public class EstudiantesController {
         }
     }
 
-    /* ================= UTILIDADES ================= */
+    
     private void limpiarCampos() {
         txtCodigo.clear();
         txtNombre.clear();
@@ -179,7 +179,7 @@ public class EstudiantesController {
     }
 
     private void refrescarTabla() {
-        // Borra lo que hay en la lista de la tabla y trae lo último del modelo
+        
         if (modelo != null && modelo.obtenerTodos()!= null) {
             listaObservable.setAll(modelo.obtenerTodos());
         }
