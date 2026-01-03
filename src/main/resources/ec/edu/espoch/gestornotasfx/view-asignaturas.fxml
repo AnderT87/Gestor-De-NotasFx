@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espoch.gestornotasfx.controller.AsignaturaController">
+
+    <top>
+        <HBox alignment="CENTER" style="-fx-background-color: #0B1C6D; -fx-padding: 20;">
+            <Label style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" text="GESTOR DE NOTAS" />
+        </HBox>
+    </top>
+
+    <left>
+        <VBox alignment="TOP_CENTER" prefWidth="200" spacing="15" style="-fx-background-color: #0D6EFD; -fx-padding: 20;">
+            <Button onAction="#menuDocentes" prefWidth="160" text="DOCENTES" />
+            <Button onAction="#menuAsignaturas" prefWidth="160" text="ASIGNATURAS" />
+            <Button onAction="#menuEstudiantes" prefWidth="160" text="ESTUDIANTES" />
+            <Button onAction="#menuAsigEstudiantes" prefWidth="160" text="ASIG. ESTUDIANTES" />
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="GESTIONAR ASIGNATURAS" />
+
+            <GridPane hgap="10" vgap="10">
+                
+                <Label text="Código:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <TextField fx:id="txtCodigo" promptText="ID Asignatura" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <Button onAction="#buscar" style="-fx-background-color: #6c757d; -fx-text-fill: white;" text="BUSCAR" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+
+                <Label text="N° Matricula:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <TextField fx:id="txtAsignatura" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                
+                <Label text="Periodo:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <TextField fx:id="txtPeriodo" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+
+                <Label text="Nombre:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <TextField fx:id="txtNombre" prefWidth="300" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+
+                <columnConstraints>
+                    <ColumnConstraints minWidth="80" />
+                    <ColumnConstraints minWidth="150" />
+                    <ColumnConstraints minWidth="80" />
+                    <ColumnConstraints minWidth="150" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="30" />
+                    <RowConstraints minHeight="30" />
+                    <RowConstraints minHeight="30" />
+                </rowConstraints>
+            </GridPane>
+
+            <HBox spacing="10">
+                <Button onAction="#agregar" style="-fx-background-color: #28A745; -fx-text-fill: white; -fx-font-weight: bold;" text="AGREGAR" />
+                <Button onAction="#actualizar" style="-fx-background-color: #17A2B8; -fx-text-fill: white; -fx-font-weight: bold;" text="ACTUALIZAR" />
+                <Button onAction="#eliminar" style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-font-weight: bold;" text="ELIMINAR" />
+            </HBox>
+
+            <TableView fx:id="tablaAsignaturas" prefHeight="300" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colCodigo" prefWidth="100" text="Código" />
+                    <TableColumn fx:id="colAsignatura" prefWidth="120" text="N° Matricula" />
+                    <TableColumn fx:id="colNombre" prefWidth="300" text="Nombre Asignatura" />
+                    <TableColumn fx:id="colPeriodo" prefWidth="150" text="Periodo" />
+                </columns>
+               
+            </TableView>
+
+        </VBox>
+    </center>
+
+</BorderPane>

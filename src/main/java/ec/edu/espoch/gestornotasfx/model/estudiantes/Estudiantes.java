@@ -1,0 +1,56 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ec.edu.espoch.gestornotasfx.model.estudiantes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author Admin
+ */
+public class Estudiantes implements IEstudiantes {
+    private List<Estudiante> estudiantes;
+
+    public Estudiantes() {
+        estudiantes = new ArrayList<>();
+    }
+
+    // ✔ Agregar nuevo estudiante
+    public void agregar(Estudiante estudiante) {
+        estudiantes.add(estudiante);
+    }
+
+    // ✔ Actualizar estudiante existente
+    public void actualizar(Estudiante estudianteActualizado) {
+        for (int i = 0; i < estudiantes.size(); i++) {
+            Estudiante e = estudiantes.get(i);
+            if (e.getCodigoEstudiante() == estudianteActualizado.getCodigoEstudiante()) {
+                estudiantes.set(i, estudianteActualizado);
+                return;
+            }
+        }
+    }
+
+    // ✔ Eliminar estudiante por código
+    public void eliminar(int codigoEstudiante) {
+        estudiantes.removeIf(e -> e.getCodigoEstudiante() == codigoEstudiante);
+    }
+
+    // ✔ Obtener un estudiante por código
+    public Estudiante obtener(int codigoEstudiante) {
+        for (Estudiante e : estudiantes) {
+            if (e.getCodigoEstudiante() == codigoEstudiante) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    // ✔ Obtener todos los estudiantes
+    public List<Estudiante> obtenerTodos() {
+        return estudiantes;
+    }
+}

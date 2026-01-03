@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="700.0" prefWidth="1100.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ec.edu.espoch.gestornotasfx.controller.Asigna_EstudiantesController">
+
+    <top>
+        <HBox alignment="CENTER" style="-fx-background-color: #0B1C6D; -fx-padding: 20;">
+            <Label text="GESTOR DE NOTAS - ASIGNACIONES"
+                   style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;" />
+        </HBox>
+    </top>
+
+    <left>
+        <VBox spacing="15" alignment="TOP_CENTER"
+              style="-fx-background-color: #0D6EFD; -fx-padding: 20;" prefWidth="200">
+            <Button text="DOCENTES" prefWidth="160" onAction="#menuDocentes"/>
+            <Button text="ASIGNATURAS" prefWidth="160" onAction="#menuAsignaturas"/>
+            <Button text="ESTUDIANTES" prefWidth="160" onAction="#menuEstudiantes"/>
+            <Button text="ASIG. ESTUDIANTES" prefWidth="160" onAction="#menuAsigEstudiantes"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <Label text="GESTIÓN DE CALIFICACIONES POR PERIODO"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+            <GridPane hgap="15" vgap="12" style="-fx-background-color: #f8f9fa; -fx-padding: 15; -fx-border-color: #dee2e6; -fx-border-radius: 5;">
+                
+                <Label text="Cód. Asignatura:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                <TextField fx:id="txtCodigoAsignatura" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Periodo:" GridPane.rowIndex="0" GridPane.columnIndex="2" style="-fx-font-weight: bold;"/>
+                <TextField fx:id="txtPeriodo" promptText="Ej: Abril 2025 - Julio 2025" 
+                           GridPane.rowIndex="0" GridPane.columnIndex="3" prefWidth="200"/>
+                
+                <Button text="BUSCAR" onAction="#buscar" prefWidth="100"
+                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold;"
+                        GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+
+                <Label text="Cód. Estudiante:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtCodigoEstudiante" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Nombre Estudiante:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtNombreEstudiante" editable="false" prefWidth="200"
+                           style="-fx-background-color: #e9ecef;" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <Label text="Nombre Docente:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtNombreDocente" editable="false" 
+                           style="-fx-background-color: #e9ecef;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Fecha Registro:" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtFecha" promptText="DD/MM/AAAA" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <Label text="Medio Ciclo:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtMedioCiclo" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Fin Ciclo:" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <TextField fx:id="txtFinCiclo" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+                <Label text="Recuperación:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="txtRecuperacion" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Promedio Final:" GridPane.rowIndex="4" GridPane.columnIndex="2" style="-fx-font-weight: bold; -fx-text-fill: #0B1C6D;"/>
+                <TextField fx:id="txtPromedioFinal" editable="false" 
+                           style="-fx-background-color: #d1ecf1; -fx-font-weight: bold;" GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+            </GridPane>
+
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Button text="AGREGAR" onAction="#agregar"
+                        style="-fx-background-color: #28A745; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
+
+                <Button text="ACTUALIZAR" onAction="#actualizar"
+                        style="-fx-background-color: #17A2B8; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
+
+                <Button text="ELIMINAR" onAction="#eliminar"
+                        style="-fx-background-color: #DC3545; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 20;"/>
+                
+                <Separator orientation="VERTICAL" />
+                
+                <Button text="LIMPIAR CAMPOS" onAction="#limpiar"
+                        style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-padding: 8 15;"/>
+            </HBox>
+
+            <TableView fx:id="tblAsignaciones" prefHeight="350" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colFecha" text="Fecha" prefWidth="100"/>
+                    <TableColumn fx:id="colAsignatura" text="Asignatura" prefWidth="150"/>
+                    <TableColumn fx:id="colPeriodo" text="Periodo" prefWidth="150"/>
+                    <TableColumn fx:id="colEstudiante" text="Estudiante" prefWidth="180"/>
+                    <TableColumn fx:id="colMedioCiclo" text="M. Ciclo" prefWidth="80"/>
+                    <TableColumn fx:id="colFinCiclo" text="F. Ciclo" prefWidth="80"/>
+                    <TableColumn fx:id="colRecuperacion" text="Recup." prefWidth="80"/>
+                    <TableColumn fx:id="colPromedio" text="Promedio" prefWidth="90"/>
+                </columns>
+                
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
