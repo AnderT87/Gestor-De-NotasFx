@@ -14,33 +14,18 @@ import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiante;
 public class Asignatura {
 
     private int codigoAsignatura;
-    private int asignatura;
+    
     private String nombreAsignatura;
     private String periodo;
 
-    public Asignatura(int codigoAsignatura, int asignatura, String nombreAsignatura, String periodo) {
-        this.asignatura = asignatura;
+    public Asignatura(int codigoAsignatura, String nombreAsignatura, String periodo) {
+        
         this.nombreAsignatura = nombreAsignatura;
         this.periodo = periodo;
         this.codigoAsignatura = codigoAsignatura;
     }
 
-    /*
-    public Docente getDocente() {
-        return docente;
-    }
-
-    public void setDocente(Docente docente) {
-        this.docente = docente;
-    }
-     */
-    public int getAsignatura() {
-        return asignatura;
-    }
-
-    public void setAsignatura(int asignatura) {
-        this.asignatura = asignatura;
-    }
+   
 
     public String getNombreAsignatura() {
         return nombreAsignatura;
@@ -68,6 +53,6 @@ public class Asignatura {
 
     @Override
     public String toString() {
-        return "Asignatura{" + "codigoAsignatura=" + codigoAsignatura + ", asignatura=" + asignatura + ", nombreAsignatura=" + nombreAsignatura + ", periodo=" + periodo + '}';
+        return "Asignatura{" + "codigoAsignatura=" + codigoAsignatura + ", nombreAsignatura=" + nombreAsignatura + ", periodo=" + periodo + '}';
     }
 }

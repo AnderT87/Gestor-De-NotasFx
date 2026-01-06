@@ -5,7 +5,7 @@
 package ec.edu.espoch.gestornotasfx.model.asig_estu;
 
 import ec.edu.espoch.gestornotasfx.model.asignatura.Asignatura;
-import ec.edu.espoch.gestornotasfx.model.docentes.Docente;
+
 import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiante;
 
 /**
@@ -16,17 +16,16 @@ public class Asigna_Estudiante {
 
     private Asignatura asignatura;
     private Estudiante estudiantes;
-    private Docente docentes;
+    
     private String fecha;
     private double recuperacion;
     private double promedioCiclos;
     private double medioCiclo;
     private double finCiclo;
 
-    public Asigna_Estudiante(Asignatura asignatura, Estudiante estudiantes, Docente docentes, String fecha, double recuperacion, double promedioCiclos, double medioCiclo, double finCiclo) {
+    public Asigna_Estudiante(Asignatura asignatura, Estudiante estudiantes,String fecha, double recuperacion, double promedioCiclos, double medioCiclo, double finCiclo) {
         this.asignatura = asignatura;
         this.estudiantes = estudiantes;
-        this.docentes = docentes;
         this.fecha = fecha;
         this.recuperacion = recuperacion;
         this.promedioCiclos = promedioCiclos;
@@ -34,24 +33,16 @@ public class Asigna_Estudiante {
         this.finCiclo = finCiclo;
     }
 
-    public double getPromedioFinal() {
-        double promedioCiclos = (medioCiclo + finCiclo) / 2.0;
-        if (promedioCiclos >= 7.0) {
-            return promedioCiclos;
-        } else {
-            return (promedioCiclos + recuperacion) / 2.0;
-        }
+    public double getPromedioCiclos() {
+        return promedioCiclos;
+    }
+
+    public void setPromedioCiclos(double promedioCiclos) {
+        this.promedioCiclos = promedioCiclos;
     }
 
     
-    public Docente getNombre() {
-        return docentes;
-    }
-
-    public void setDocentes(Docente docentes) {
-        this.docentes = docentes;
-    }
-
+    
     public Asignatura getAsignatura() {
         return asignatura;
     }

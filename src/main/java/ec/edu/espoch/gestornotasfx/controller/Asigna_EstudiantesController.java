@@ -12,12 +12,15 @@ import ec.edu.espoch.gestornotasfx.model.asignatura.Asignatura;
 import ec.edu.espoch.gestornotasfx.model.asignatura.Asignaturas;
 import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiante;
 import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiantes;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -25,49 +28,106 @@ import javafx.scene.control.TextField;
  */
 public class Asigna_EstudiantesController {
 
-    /* ================== MODELOS ================== 
-    private Asigna_Estudiantes modelo = new Asigna_Estudiantes();
-    private Asignaturas modeloAsignaturas = new Asignaturas();
-    private Estudiantes modeloEstudiantes = new Estudiantes();
+    @FXML private TextField txtCodEstudiante, txtCodAsignatura, txtMedioCiclo, txtFinCiclo, txtRecuperacion;
+    @FXML private Label lblNombreEstudiante, lblNombreAsignatura;
+    @FXML private TableView<Asigna_Estudiante> tablaAsignaciones;
+    @FXML private TableColumn<Asigna_Estudiante, String> colEstudiante, colAsignatura;
+    @FXML private TableColumn<Asigna_Estudiante, Double> colMedio, colFin, colPromedio;
 
-    private ObservableList<Asigna_Estudiante> datosTabla
-            = FXCollections.observableArrayList();
-
-    /* ================= CAMPOS ================= 
-    @FXML
-    private TextField txtFecha;
-    @FXML
-    private TextField txtCodigoAsignatura;
-    @FXML
-    private TextField txtCodigoEstudiante;
-    @FXML
-    private TextField txtRecuperacion;
-    @FXML
-    private TextField txtMedioCiclo;
-    @FXML
-    private TextField txtFinCiclo;
-
-    /* ================= TABLA ================= 
-    @FXML
-    private TableView<Asigna_Estudiante> tblAsignaciones;
+    private ObservableList<Asigna_Estudiante> masterData = FXCollections.observableArrayList();
+    private Estudiante seleccionadoEst;
+    private Asignatura seleccionadoAsig;
 
     @FXML
-    private TableColumn<Asigna_Estudiante, String> colFecha;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Integer> colCodAsignatura;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Integer> colCodEstudiante;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Double> colRecuperacion;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Double> colMedioCiclo;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Double> colFinCiclo;
+    public void initialize() {
+        // Configuración de columnas para obtener datos de objetos anidados
+        colEstudiante.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getEstudiantes().getNombreEstudiante() + " " + cellData.getValue().getEstudiantes().getApellidoEstudiantes()));
+        
+        colAsignatura.setCellValueFactory(cellData -> 
+            new SimpleStringProperty(cellData.getValue().getAsignatura().getNombreAsignatura()));
 
-    /* ================= INIT ================= 
+        colMedio.setCellValueFactory(new PropertyValueFactory<>("medioCiclo"));
+        colFin.setCellValueFactory(new PropertyValueFactory<>("finCiclo"));
+        colPromedio.setCellValueFactory(new PropertyValueFactory<>("promedioCiclos"));
+
+        tablaAsignaciones.setItems(masterData);
+    }
+
     @FXML
+    private void buscarEstudiante() {
+        int cod = Integer.parseInt(txtCodEstudiante.getText());
+        // Aquí llamas a tu método global de búsqueda de estudiantes
+        // seleccionadoEst = App.buscarEstudiante(cod); 
+        
+        if (seleccionadoEst != null) {
+            lblNombreEstudiante.setText(seleccionadoEst.getNombreEstudiante() + " " + seleccionadoEst.getApellidoEstudiantes());
+        } else {
+            lblNombreEstudiante.setText("⚠️ No encontrado");
+        }
+    }
+
+    @FXML
+    private void buscarAsignatura() {
+        int cod = Integer.parseInt(txtCodAsignatura.getText());
+        // Aquí llamas a tu método global de búsqueda de asignaturas
+        // seleccionadoAsig = App.buscarAsignatura(cod);
+
+        if (seleccionadoAsig != null) {
+            lblNombreAsignatura.setText(seleccionadoAsig.getNombreAsignatura());
+        } else {
+            lblNombreAsignatura.setText("⚠️ No encontrada");
+        }
+    }
+
+    @FXML
+    private void agregar() {
+        if (seleccionadoEst != null && seleccionadoAsig != null) {
+            double m = Double.parseDouble(txtMedioCiclo.getText());
+            double f = Double.parseDouble(txtFinCiclo.getText());
+            double r = Double.parseDouble(txtRecuperacion.getText());
+            double p = (m + f) / 2;
+
+            Asigna_Estudiante nuevo = new Asigna_Estudiante(seleccionadoAsig, seleccionadoEst, "", r, p, m, f);
+            masterData.add(nuevo);
+            limpiar();
+        }
+    }
+
+    @FXML
+    private void actualizar() {
+        Asigna_Estudiante sel = tablaAsignaciones.getSelectionModel().getSelectedItem();
+        if (sel != null) {
+            sel.setMedioCiclo(Double.parseDouble(txtMedioCiclo.getText()));
+            sel.setFinCiclo(Double.parseDouble(txtFinCiclo.getText()));
+            sel.setRecuperacion(Double.parseDouble(txtRecuperacion.getText()));
+            // Recalcular promedio
+            sel.setPromedioCiclos((sel.getMedioCiclo() + sel.getFinCiclo()) / 2);
+            tablaAsignaciones.refresh();
+        }
+    }
+
+    @FXML
+    private void eliminar() {
+        Asigna_Estudiante sel = tablaAsignaciones.getSelectionModel().getSelectedItem();
+        masterData.remove(sel);
+    }
+
+    private void limpiar() {
+        txtCodEstudiante.clear();
+        txtCodAsignatura.clear();
+        txtMedioCiclo.clear();
+        txtFinCiclo.clear();
+        lblNombreEstudiante.setText("Estudiante: ---");
+        lblNombreAsignatura.setText("Materia: ---");
+        seleccionadoEst = null;
+        seleccionadoAsig = null;
+    }
+
+    // Métodos de navegación (Deben estar implementados para cambiar de escena)
+     @FXML
     private void menuDocentes() {
-        // Llama al método de App pasándole el nombre del FXML de docentes
+        
         App.cambiarVista("view-docentes");
     }
 
@@ -83,144 +143,7 @@ public class Asigna_EstudiantesController {
 
     @FXML
     private void menuAsigEstudiantes() {
-        // Asumiendo que esta es la vista de notas
+        
         App.cambiarVista("view-notas");
     }
-    
-    @FXML
-    private void initialize() {
-
-        colFecha.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleStringProperty(
-                        d.getValue().getFecha()));
-
-        colCodAsignatura.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleIntegerProperty(
-                        d.getValue().getAsignatura().getCodigoAsignatura()).asObject());
-
-        colCodEstudiante.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleIntegerProperty(
-                        d.getValue().getEstudiantes().getCodigoEstudiante()).asObject());
-
-        colRecuperacion.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleDoubleProperty(
-                        d.getValue().getRecuperacion()).asObject());
-
-        colMedioCiclo.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleDoubleProperty(
-                        d.getValue().getMedioCiclo()).asObject());
-
-        colFinCiclo.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleDoubleProperty(
-                        d.getValue().getFinCiclo()).asObject());
-
-        tblAsignaciones.setItems(datosTabla);
-    }
-
-
-    @FXML
-    private void agregar() {
-        Asigna_Estudiante ae = construirDesdeFormulario();
-        modelo.agregar(ae);
-        refrescarTabla();
-        limpiar();
-    }
-
-    @FXML
-    private void actualizar() {
-        Asigna_Estudiante ae = construirDesdeFormulario();
-        modelo.actualizar(ae);
-        refrescarTabla();
-        limpiar();
-    }
-
-    @FXML
-    private void eliminar() {
-        modelo.eliminar(
-                txtFecha.getText(),
-                Integer.parseInt(txtCodigoAsignatura.getText()),
-                Integer.parseInt(txtCodigoEstudiante.getText())
-        );
-        refrescarTabla();
-        limpiar();
-    }
-
-    @FXML
-    private void buscar() {
-        Asigna_Estudiante ae = modelo.obtener(
-                txtFecha.getText(),
-                Integer.parseInt(txtCodigoAsignatura.getText()),
-                Integer.parseInt(txtCodigoEstudiante.getText())
-        );
-
-        if (ae != null) {
-            txtRecuperacion.setText(String.valueOf(ae.getRecuperacion()));
-            txtMedioCiclo.setText(String.valueOf(ae.getMedioCiclo()));
-            txtFinCiclo.setText(String.valueOf(ae.getFinCiclo()));
-        }
-    }
-
-    @FXML
-    private void limpiar() {
-        txtFecha.clear();
-        txtCodigoAsignatura.clear();
-        txtCodigoEstudiante.clear();
-        txtRecuperacion.clear();
-        txtMedioCiclo.clear();
-        txtFinCiclo.clear();
-    }
-
-    /* ================= AUXILIARES ================= 
-    private Asigna_Estudiante construirDesdeFormulario() {
-    try {
-        // 1. Obtener códigos base
-        int codA = Integer.parseInt(txtCodigoAsignatura.getText().trim());
-        int codE = Integer.parseInt(txtCodigoEstudiante.getText().trim());
-
-        // 2. Obtener notas de ciclos (Obligatorias)
-        double medio = Double.parseDouble(txtMedioCiclo.getText().replace(",", "."));
-        double fin = Double.parseDouble(txtFinCiclo.getText().replace(",", "."));
-
-        // 3. Lógica de recuperación condicional
-        double recuperacion = 0;
-        double promedioCiclos = (medio + fin) / 2;
-
-        if (promedioCiclos < 7.0) {
-            // Si el promedio es menor a 7, la recuperación es obligatoria
-            if (txtRecuperacion.getText().trim().isEmpty()) {
-                throw new IllegalArgumentException("El promedio es " + promedioCiclos + ". Se requiere nota de recuperación.");
-            }
-            recuperacion = Double.parseDouble(txtRecuperacion.getText().replace(",", "."));
-        } else {
-            // Si el promedio es >= 7, ignoramos la recuperación o usamos lo que haya (usualmente 0)
-            if (!txtRecuperacion.getText().trim().isEmpty()) {
-                recuperacion = Double.parseDouble(txtRecuperacion.getText().replace(",", "."));
-            }
-        }
-
-        // 4. Obtener objetos de modelo
-        Asignatura asignatura = modeloAsignaturas.obtener(codA);
-        Estudiante estudiante = modeloEstudiantes.obtener(codE);
-
-        return new Asigna_Estudiante(
-                asignatura,
-                estudiante,
-                txtFecha.getText(),
-                recuperacion,
-                medio,
-                fin
-        );
-    } catch (NumberFormatException e) {
-        //mostrarAlerta("Error de Formato", "Asegúrese de que las notas sean números válidos.");
-        throw e;
-    } catch (IllegalArgumentException e) {
-        //mostrarAlerta("Nota de Recuperación Requerida", e.getMessage());
-        throw e;
-    }
-}
-
-    private void refrescarTabla() {
-        datosTabla.setAll(modelo.obtenerPorAsignatura(
-                Integer.parseInt(txtCodigoAsignatura.getText())));
-    }*/
 }

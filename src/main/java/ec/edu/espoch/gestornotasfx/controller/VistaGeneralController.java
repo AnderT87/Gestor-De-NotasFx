@@ -4,6 +4,7 @@
  */
 package ec.edu.espoch.gestornotasfx.controller;
 
+import ec.edu.espoch.gestornotasfx.App;
 import ec.edu.espoch.gestornotasfx.model.asig_estu.Asigna_Estudiante;
 import ec.edu.espoch.gestornotasfx.model.asig_estu.Asigna_Estudiantes;
 import javafx.collections.FXCollections;
@@ -40,85 +41,28 @@ public class VistaGeneralController {
     private TableColumn<Asigna_Estudiante, Double> colFinal;
 
     private Asigna_Estudiantes modelo;
-
-    /* ====== INIT ======
-    @FXML
-    private void initialize() {
-        modelo = new Asigna_Estudiantes();
-
-        colDocente.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleStringProperty(
-                        d.getValue().getAsignatura().getDocente().getNombre()
-                        + " "
-                        + d.getValue().getAsignatura().getDocente().getApellido()
-                )
-        );
-
-        colAsignatura.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleStringProperty(
-                        d.getValue().getAsignatura().getNombreAsignatura()
-                )
-        );
-
-        colEstudiante.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleStringProperty(
-                        d.getValue().getEstudiantes().getNombreEstudiante()
-                        + " "
-                        + d.getValue().getEstudiantes().getApellidoEstudiantes()
-                )
-        );
-
-        colRecuperacion.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleDoubleProperty(
-                        d.getValue().getRecuperacion()
-                ).asObject()
-        );
-
-        colMedio.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleDoubleProperty(
-                        d.getValue().getMedioCiclo()
-                ).asObject()
-        );
-
-        colFinal.setCellValueFactory(d
-                -> new javafx.beans.property.SimpleDoubleProperty(
-                        d.getValue().getFinCiclo()
-                ).asObject()
-        );
+    
+     @FXML
+    private void menuDocentes() {
+        
+        App.cambiarVista("view-docentes");
     }
 
-    // ====== BUSCAR POR PERIODO ======
     @FXML
-    private void buscar() {
-
-        String periodo = txtPeriodo.getText().trim();
-
-        if (periodo.isEmpty()) {
-            alerta("Advertencia", "Ingrese el periodo");
-            return;
-        }
-
-        ObservableList<Asigna_Estudiante> resultado
-                = FXCollections.observableArrayList();
-
-        for (Asigna_Estudiante ae : modelo.obtenerPorAsignatura(0)) {
-            if (ae.getAsignatura().getPeriodo().equalsIgnoreCase(periodo)) {
-                resultado.add(ae);
-            }
-        }
-
-        tabla.setItems(resultado);
-
-        if (resultado.isEmpty()) {
-            alerta("Información", "No hay registros para ese periodo");
-        }
+    private void menuAsignaturas() {
+        App.cambiarVista("view-asignaturas");
     }
 
-    private void alerta(String titulo, String msg) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(msg);
-        a.showAndWait();
-    }*/
+    @FXML
+    private void menuEstudiantes() {
+        App.cambiarVista("view-estudiantes");
+    }
+
+    @FXML
+    private void menuAsigEstudiantes() {
+        
+        App.cambiarVista("view-notas");
+    }
+
+    
 }

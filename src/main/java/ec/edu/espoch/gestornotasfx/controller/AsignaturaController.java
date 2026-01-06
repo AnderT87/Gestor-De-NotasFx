@@ -23,139 +23,153 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class AsignaturaController {
 
-    
     private Asignaturas asignaturas = new Asignaturas();
     private ObservableList<Asignatura> listaObservable;
 
-    
     @FXML
     private TextField txtCodigo;
     @FXML
-    private TextField txtAsignatura;
-    @FXML
-    private TextField txtNombre;
+    private TextField txtNombre; // Usaremos este para el nombre de la materia
     @FXML
     private TextField txtPeriodo;
 
-    
     @FXML
     private TableView<Asignatura> tablaAsignaturas;
     @FXML
     private TableColumn<Asignatura, Integer> colCodigo;
     @FXML
-    private TableColumn<Asignatura, Integer> colAsignatura;
-    @FXML
     private TableColumn<Asignatura, String> colNombre;
     @FXML
     private TableColumn<Asignatura, String> colPeriodo;
 
-    
-    @FXML
-    private void menuDocentes() {
-        
-        App.cambiarVista("view-docentes");
-    }
-
-    @FXML
-    private void menuAsignaturas() {
-        App.cambiarVista("view-asignaturas");
-    }
-
-    @FXML
-    private void menuEstudiantes() {
-        App.cambiarVista("view-estudiantes");
-    }
-
-    @FXML
-    private void menuAsigEstudiantes() {
-        
-        App.cambiarVista("view-notas");
-    }
+    // --- NAVEGACIÓN ---
+    @FXML private void menuDocentes() { App.cambiarVista("view-docentes"); }
+    @FXML private void menuAsignaturas() { App.cambiarVista("view-asignaturas"); }
+    @FXML private void menuEstudiantes() { App.cambiarVista("view-estudiantes"); }
+    @FXML private void menuAsigEstudiantes() { App.cambiarVista("view-notas"); }
 
     @FXML
     public void initialize() {
-        colCodigo.setCellValueFactory(
-                new PropertyValueFactory<>("codigoAsignatura"));
-        colAsignatura.setCellValueFactory(
-                new PropertyValueFactory<>("asignatura"));
-        colNombre.setCellValueFactory(
-                new PropertyValueFactory<>("nombreAsignatura"));
-        colPeriodo.setCellValueFactory(
-                new PropertyValueFactory<>("periodo"));
+        colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoAsignatura"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreAsignatura"));
+        colPeriodo.setCellValueFactory(new PropertyValueFactory<>("periodo"));
 
         listaObservable = FXCollections.observableArrayList();
         tablaAsignaturas.setItems(listaObservable);
+        actualizarTabla(); // Cargar datos existentes al abrir
     }
 
-    
     @FXML
     private void agregar() {
-        Asignatura a = new Asignatura(
-                Integer.parseInt(txtCodigo.getText()),
-                Integer.parseInt(txtAsignatura.getText()),
-                txtNombre.getText(),
-                txtPeriodo.getText()
-        );
+        try {
+            if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty()) {
+                mostrarError("Por favor, llene todos los campos.");
+                return;
+            }
 
-        asignaturas.agregar(a);
-        actualizarTabla();
-        limpiarCampos();
-    }
+            Asignatura a = new Asignatura(
+                    Integer.parseInt(txtCodigo.getText()),
+                    txtNombre.getText(),
+                    txtPeriodo.getText()
+            );
 
-    
-    @FXML
-    private void buscar() {
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        Asignatura a = asignaturas.obtener(codigo);
-
-        if (a != null) {
-            txtAsignatura.setText(String.valueOf(a.getAsignatura()));
-            txtNombre.setText(a.getNombreAsignatura());
-            txtPeriodo.setText(a.getPeriodo());
+            asignaturas.agregar(a);
+            mostrarInfo("Asignatura agregada con éxito");
+            actualizarTabla();
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            mostrarError("El código debe ser un número válido.");
         }
     }
 
-    
+    @FXML
+    private void buscar() {
+        try {
+            if (txtCodigo.getText().isEmpty()) {
+                mostrarError("Ingrese un código para buscar.");
+                return;
+            }
+
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            Asignatura a = asignaturas.obtener(codigo);
+
+            if (a != null) {
+                txtNombre.setText(a.getNombreAsignatura());
+                txtPeriodo.setText(a.getPeriodo());
+            } else {
+                mostrarError("Asignatura no encontrada.");
+            }
+        } catch (NumberFormatException e) {
+            mostrarError("El código debe ser numérico.");
+        }
+    }
+
     @FXML
     private void actualizar() {
-        Asignatura a = new Asignatura(
-                Integer.parseInt(txtCodigo.getText()),
-                Integer.parseInt(txtAsignatura.getText()),
-                txtNombre.getText(),
-                txtPeriodo.getText()
-        );
+        try {
+            if (txtCodigo.getText().isEmpty()) {
+                mostrarError("Debe ingresar el código de la asignatura a actualizar.");
+                return;
+            }
 
-        asignaturas.actualizar(a);
-        actualizarTabla();
-        limpiarCampos();
+            Asignatura a = new Asignatura(
+                    Integer.parseInt(txtCodigo.getText()),
+                    txtNombre.getText(),
+                    txtPeriodo.getText()
+            );
+
+            asignaturas.actualizar(a);
+            mostrarInfo("Asignatura actualizada con éxito");
+            actualizarTabla();
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            mostrarError("Error en los datos ingresados.");
+        }
     }
 
-    
     @FXML
     private void eliminar() {
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        asignaturas.eliminar(codigo);
-        actualizarTabla();
-        limpiarCampos();
+        try {
+            if (txtCodigo.getText().isEmpty()) {
+                mostrarError("Ingrese un código para eliminar.");
+                return;
+            }
+
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            asignaturas.eliminar(codigo);
+            mostrarInfo("Asignatura eliminada con éxito");
+            actualizarTabla();
+            limpiarCampos();
+        } catch (NumberFormatException e) {
+            mostrarError("Código no válido.");
+        }
     }
 
-    
     private void actualizarTabla() {
-        listaObservable.setAll(asignaturas.obtenerTodos());
+        if (asignaturas.obtenerTodos() != null) {
+            listaObservable.setAll(asignaturas.obtenerTodos());
+        }
     }
 
     private void limpiarCampos() {
         txtCodigo.clear();
-        txtAsignatura.clear();
         txtNombre.clear();
         txtPeriodo.clear();
     }
 
     private void mostrarInfo(String msg) {
-        new Alert(Alert.AlertType.INFORMATION, msg).showAndWait();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 
     private void mostrarError(String msg) {
-        new Alert(Alert.AlertType.ERROR, msg).showAndWait();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 }

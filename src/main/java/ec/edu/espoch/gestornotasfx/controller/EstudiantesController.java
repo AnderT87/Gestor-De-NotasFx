@@ -163,7 +163,9 @@ public class EstudiantesController {
             int codigo = Integer.parseInt(txtCodigo.getText());
             modelo.eliminar(codigo);
             mostrarInfo("Estudiante eliminado");
+            
             limpiarCampos();
+            refrescarTabla();
 
         } catch (NumberFormatException e) {
             mostrarError("Ingrese un código válido");

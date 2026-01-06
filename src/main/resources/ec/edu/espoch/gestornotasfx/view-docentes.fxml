@@ -26,10 +26,11 @@
               style="-fx-background-color: #0D6EFD; -fx-padding: 20;"
               prefWidth="200">
 
-            <Button text="DOCENTES" prefWidth="160" onAction="#menuDocentes"/>
+            <Button text="DOCENTES" prefWidth="160" onAction="#menuDocentes"
+                    style="-fx-background-color: #0B1C6D; -fx-text-fill: white; -fx-font-weight: bold;"/>
             <Button text="ASIGNATURAS" prefWidth="160" onAction="#menuAsignaturas"/>
             <Button text="ESTUDIANTES" prefWidth="160" onAction="#menuEstudiantes"/>
-            <Button text="ASIG. ESTUDIANTES" prefWidth="160" onAction="#menuAsigEstudiantes"/>
+            <Button text="NOTAS" prefWidth="160" onAction="#menuAsigEstudiantes"/>
 
         </VBox>
     </left>

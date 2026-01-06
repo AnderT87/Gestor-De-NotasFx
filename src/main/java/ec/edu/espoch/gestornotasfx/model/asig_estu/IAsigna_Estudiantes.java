@@ -12,13 +12,13 @@ import java.util.List;
  */
 public interface IAsigna_Estudiantes {
 
-    public void agregar(Asigna_Estudiante ae);
+    public boolean agregar(Asigna_Estudiante nueva);
 
-    public void actualizar(Asigna_Estudiante ae);
+    public boolean actualizar(Asigna_Estudiante aeActualizada);
 
-    public void eliminar(String fecha, int codA, int codE);
+    public boolean eliminar(int codEstudiante, int codAsignatura);
 
-    public List<Asigna_Estudiante> buscar(int codA, String nombrePeriodo);
+    public Asigna_Estudiante buscar(int codEstudiante, int codAsignatura);
     
     public List<Asigna_Estudiante> obtenerTodo();
 }

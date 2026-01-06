@@ -1,37 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 
-<BorderPane fx:id="root" prefHeight="314.0" prefWidth="464.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espoch.gestornotasfx.controller">
+<BorderPane prefHeight="600.0" prefWidth="1000.0" 
+            xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="ec.edu.espoch.gestornotasfx.controller.VistaGeneralController">
 
-    <!-- ENCABEZADO -->
     <top>
-        <HBox alignment="CENTER" style="-fx-background-color: #0A0F5C; -fx-padding: 20;">
-            <Label style="-fx-text-fill: white;                           -fx-font-size: 22px;                           -fx-font-weight: bold;" text="GESTOR DE NOTAS" />
-        </HBox>
+        <VBox>
+            <HBox alignment="CENTER" style="-fx-background-color: #0B1C6D; -fx-padding: 25;">
+                <Label style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;" 
+                       text="SISTEMA ACADÉMICO GESTOR DE NOTAS" />
+            </HBox>
+            
+            <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #0D6EFD; -fx-padding: 10;">
+                <Button onAction="#menuDocentes" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="DOCENTES" />
+                <Separator orientation="VERTICAL" prefHeight="20" />
+                <Button onAction="#menuAsignaturas" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="ASIGNATURAS" />
+                <Separator orientation="VERTICAL" prefHeight="20" />
+                <Button onAction="#menuEstudiantes" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="ESTUDIANTES" />
+                <Separator orientation="VERTICAL" prefHeight="20" />
+                <Button onAction="#menuAsigEstudiantes" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="ASIG. ESTUDIANTES" />
+            </HBox>
+        </VBox>
     </top>
 
-    <!-- MENÚ LATERAL -->
-    <left>
-        <VBox spacing="20" style="-fx-background-color: #0D6EFD;                      -fx-padding: 30;                      -fx-pref-width: 200;">
-
-            <Button onAction="#irDocentes" style="-fx-background-color: #0B5ED7;                            -fx-text-fill: white;                            -fx-font-weight: bold;" text="DOCENTES" />
-
-            <Button onAction="#irAsignaturas" style="-fx-background-color: #0B5ED7;                            -fx-text-fill: white;                            -fx-font-weight: bold;" text="ASIGNATURAS" />
-
-            <Button onAction="#irEstudiantes" style="-fx-background-color: #0B5ED7;                            -fx-text-fill: white;                            -fx-font-weight: bold;" text="ESTUDIANTES" />
-
-            <Button onAction="#irNotas" style="-fx-background-color: #0B5ED7;                            -fx-text-fill: white;                            -fx-font-weight: bold;" text="ASIG. ESTUDIANTES" />
-        </VBox>
-    </left>
-
-    <!-- CONTENIDO CENTRAL -->
     <center>
-        <AnchorPane fx:id="contenedorCentral" style="-fx-background-color: #F5F5F5;" />
+        <StackPane style="-fx-background-color: #F4F7FB;">
+            <VBox alignment="CENTER" spacing="30">
+                
+                <Label text="🎓" style="-fx-font-size: 100px;" />
+                
+                <VBox alignment="CENTER" spacing="10">
+                    <Label text="BIENVENIDO" 
+                           style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #0B1C6D;" />
+                    <Label text="Escuela Superior Politécnica de Chimborazo" 
+                           style="-fx-font-size: 18px; -fx-text-fill: #666;" />
+                </VBox>
+
+                <Separator maxWidth="500" />
+
+                <GridPane alignment="CENTER" hgap="40" vgap="20" style="-fx-padding: 20;">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" />
+                        <ColumnConstraints halignment="CENTER" />
+                    </columnConstraints>
+                    
+                    <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="Módulo de Control" style="-fx-font-weight: bold; -fx-text-fill: #0D6EFD;" />
+                        <Label text="Administración de registros y actas" />
+                    </VBox>
+                    
+                    <VBox alignment="CENTER" spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="Seguridad" style="-fx-font-weight: bold; -fx-text-fill: #0D6EFD;" />
+                        <Label text="Respaldo de calificaciones finales" />
+                    </VBox>
+                </GridPane>
+
+            </VBox>
+        </StackPane>
     </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: #E8E8E8;">
+            <Label text="© 2026 - Gestión Académica | Todos los derechos reservados" 
+                   style="-fx-text-fill: #777; -fx-font-size: 12px;" />
+        </HBox>
+    </bottom>
 
 </BorderPane>

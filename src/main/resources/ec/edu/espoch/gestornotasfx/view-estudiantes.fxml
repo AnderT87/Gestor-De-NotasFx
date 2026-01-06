@@ -33,8 +33,9 @@
 
             <Button text="DOCENTES" prefWidth="160" onAction="#menuDocentes"/>
             <Button text="ASIGNATURAS" prefWidth="160" onAction="#menuAsignaturas"/>
-            <Button text="ESTUDIANTES" prefWidth="160" onAction="#menuEstudiantes"/>
-            <Button text="ASIG. ESTUDIANTES" prefWidth="160" onAction="#menuAsigEstudiantes"/>
+            <Button text="ESTUDIANTES" prefWidth="160" onAction="#menuEstudiantes"
+                    style="-fx-background-color: #0B1C6D; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            <Button text="NOTAS" prefWidth="160" onAction="#menuAsigEstudiantes"/>
 
         </VBox>
     </left>
