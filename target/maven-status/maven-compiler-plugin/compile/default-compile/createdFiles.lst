@@ -4,6 +4,7 @@ ec\edu\espoch\gestornotasfx\model\asignatura\IAsignaturas.class
 ec\edu\espoch\gestornotasfx\App.class
 ec\edu\espoch\gestornotasfx\model\asig_estu\IAsigna_Estudiantes.class
 ec\edu\espoch\gestornotasfx\model\estudiantes\Estudiante.class
+ec\edu\espoch\gestornotasfx\Conexion.class
 module-info.class
 ec\edu\espoch\gestornotasfx\model\asignatura\Asignatura.class
 ec\edu\espoch\gestornotasfx\controller\VistaGeneralController.class

@@ -28,11 +28,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class Asigna_EstudiantesController {
 
-    @FXML private TextField txtCodEstudiante, txtCodAsignatura, txtMedioCiclo, txtFinCiclo, txtRecuperacion;
-    @FXML private Label lblNombreEstudiante, lblNombreAsignatura;
-    @FXML private TableView<Asigna_Estudiante> tablaAsignaciones;
-    @FXML private TableColumn<Asigna_Estudiante, String> colEstudiante, colAsignatura;
-    @FXML private TableColumn<Asigna_Estudiante, Double> colMedio, colFin, colPromedio;
+    @FXML
+    private TextField txtCodEstudiante, txtCodAsignatura, txtMedioCiclo, txtFinCiclo, txtRecuperacion;
+    @FXML
+    private Label lblNombreEstudiante, lblNombreAsignatura;
+    @FXML
+    private TableView<Asigna_Estudiante> tablaAsignaciones;
+    @FXML
+    private TableColumn<Asigna_Estudiante, String> colEstudiante, colAsignatura;
+    @FXML
+    private TableColumn<Asigna_Estudiante, Double> colMedio, colFin, colPromedio;
 
     private ObservableList<Asigna_Estudiante> masterData = FXCollections.observableArrayList();
     private Estudiante seleccionadoEst;
@@ -41,11 +46,11 @@ public class Asigna_EstudiantesController {
     @FXML
     public void initialize() {
         // Configuración de columnas para obtener datos de objetos anidados
-        colEstudiante.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getEstudiantes().getNombreEstudiante() + " " + cellData.getValue().getEstudiantes().getApellidoEstudiantes()));
-        
-        colAsignatura.setCellValueFactory(cellData -> 
-            new SimpleStringProperty(cellData.getValue().getAsignatura().getNombreAsignatura()));
+        colEstudiante.setCellValueFactory(cellData
+                -> new SimpleStringProperty(cellData.getValue().getEstudiantes().getNombreEstudiante() + " " + cellData.getValue().getEstudiantes().getApellidoEstudiantes()));
+
+        colAsignatura.setCellValueFactory(cellData
+                -> new SimpleStringProperty(cellData.getValue().getAsignatura().getNombreAsignatura()));
 
         colMedio.setCellValueFactory(new PropertyValueFactory<>("medioCiclo"));
         colFin.setCellValueFactory(new PropertyValueFactory<>("finCiclo"));
@@ -59,7 +64,7 @@ public class Asigna_EstudiantesController {
         int cod = Integer.parseInt(txtCodEstudiante.getText());
         // Aquí llamas a tu método global de búsqueda de estudiantes
         // seleccionadoEst = App.buscarEstudiante(cod); 
-        
+
         if (seleccionadoEst != null) {
             lblNombreEstudiante.setText(seleccionadoEst.getNombreEstudiante() + " " + seleccionadoEst.getApellidoEstudiantes());
         } else {
@@ -125,9 +130,9 @@ public class Asigna_EstudiantesController {
     }
 
     // Métodos de navegación (Deben estar implementados para cambiar de escena)
-     @FXML
+    @FXML
     private void menuDocentes() {
-        
+
         App.cambiarVista("view-docentes");
     }
 
@@ -143,7 +148,7 @@ public class Asigna_EstudiantesController {
 
     @FXML
     private void menuAsigEstudiantes() {
-        
+
         App.cambiarVista("view-notas");
     }
 }

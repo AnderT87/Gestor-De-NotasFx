@@ -9,6 +9,8 @@ import ec.edu.espoch.gestornotasfx.model.docentes.Docente;
 import ec.edu.espoch.gestornotasfx.model.docentes.Docentes;
 import ec.edu.espoch.gestornotasfx.model.docentes.IDocentes;
 import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiante;
+import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -97,7 +99,7 @@ public class DocentesController {
 
     
     @FXML
-    private void agregar() {
+    private void agregar() throws SQLException {
 
         if (txtCedula.getText().isEmpty()) {
             mostrarAlerta("Error", "La cédula es obligatoria");
@@ -126,7 +128,7 @@ public class DocentesController {
 
     
     @FXML
-    private void buscar() {
+    private void buscar() throws SQLException {
 
         String cedula = txtCedula.getText();
 
@@ -150,7 +152,7 @@ public class DocentesController {
 
     
     @FXML
-    private void actualizar() {
+    private void actualizar() throws SQLException {
 
         String cedula = txtCedula.getText();
 
@@ -174,7 +176,7 @@ public class DocentesController {
 
     
     @FXML
-    private void eliminar() {
+    private void eliminar() throws SQLException {
 
         String cedula = txtCedula.getText();
 
@@ -197,16 +199,32 @@ public class DocentesController {
     }
 
     private void refrescarTabla() {
+    try {
         
-        if (docentes != null && docentes.obtenerTodos()!= null) {
-            listaObservable.setAll(docentes.obtenerTodos());
+        if (docentes != null) {
+          
+            List<Docente> lista = docentes.listar();
+            
+            
+            if (lista != null) {
+                listaObservable.setAll(lista);
+            }
         }
+    } catch (SQLException e) {
+        
+        mostrarError("No se pudo refrescar la tabla: " + e.getMessage());
+        e.printStackTrace(); 
     }
+}
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+    
+    private void mostrarError(String msg) {
+        new Alert(Alert.AlertType.ERROR, msg).showAndWait();
     }
 }

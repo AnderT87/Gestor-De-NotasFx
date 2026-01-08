@@ -9,6 +9,8 @@ import javafx.event.ActionEvent;
 import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiante;
 import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiantes;
 import ec.edu.espoch.gestornotasfx.model.estudiantes.IEstudiantes;
+import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +26,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class EstudiantesController {
 
-    private Estudiantes modelo;
+    private IEstudiantes modelo;
     private ObservableList<Estudiante> listaObservable;
 
     @FXML
@@ -50,7 +52,7 @@ public class EstudiantesController {
 
     @FXML
     private void menuDocentes() {
-        
+
         App.cambiarVista("view-docentes");
     }
 
@@ -66,13 +68,13 @@ public class EstudiantesController {
 
     @FXML
     private void menuAsigEstudiantes() {
-        
+
         App.cambiarVista("view-notas");
     }
 
     @FXML
     private void initialize() {
-        
+
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoEstudiante"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreEstudiante"));
         colApellido.setCellValueFactory(new PropertyValueFactory<>("apellidoEstudiantes"));
@@ -81,14 +83,11 @@ public class EstudiantesController {
         listaObservable = FXCollections.observableArrayList();
         tablaEstudiantes.setItems(listaObservable);
         modelo = new Estudiantes();
-
-        
         refrescarTabla();
     }
 
-    
     @FXML
-    private void agregar() {
+    private void agregar() throws SQLException {
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
 
@@ -101,9 +100,8 @@ public class EstudiantesController {
 
             modelo.agregar(e);
 
-            
             listaObservable.add(e);
-            
+
             refrescarTabla();
             mostrarInfo("Estudiante agregado correctamente");
             limpiarCampos();
@@ -113,9 +111,8 @@ public class EstudiantesController {
         }
     }
 
-    
     @FXML
-    private void buscar() {
+    private void buscar() throws SQLException {
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
             Estudiante e = modelo.obtener(codigo);
@@ -133,9 +130,8 @@ public class EstudiantesController {
         }
     }
 
-    
     @FXML
-    private void actualizar() {
+    private void actualizar() throws SQLException {
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
 
@@ -146,7 +142,7 @@ public class EstudiantesController {
                     txtCorreo.getText()
             );
 
-            modelo.actualizar(actualizado);
+            modelo.actualizar(codigo, actualizado);
             refrescarTabla();
             mostrarInfo("Estudiante actualizado");
             limpiarCampos();
@@ -156,14 +152,13 @@ public class EstudiantesController {
         }
     }
 
-    
     @FXML
-    private void eliminar() {
+    private void eliminar() throws SQLException {
         try {
             int codigo = Integer.parseInt(txtCodigo.getText());
             modelo.eliminar(codigo);
             mostrarInfo("Estudiante eliminado");
-            
+
             limpiarCampos();
             refrescarTabla();
 
@@ -172,7 +167,6 @@ public class EstudiantesController {
         }
     }
 
-    
     private void limpiarCampos() {
         txtCodigo.clear();
         txtNombre.clear();
@@ -181,10 +175,19 @@ public class EstudiantesController {
     }
 
     private void refrescarTabla() {
-        
-        if (modelo != null && modelo.obtenerTodos()!= null) {
-            listaObservable.setAll(modelo.obtenerTodos());
+        try {
+            if (modelo != null) {
+                List<Estudiante> lista = modelo.Listar();
+                if (lista != null) {
+                    listaObservable.setAll(lista);
+
+                }
+            }
+        } catch (SQLException e) {
+            mostrarError("No se pudo refrescar la tabla: " + e.getMessage());
+            e.printStackTrace();
         }
+
     }
 
     private void mostrarInfo(String msg) {

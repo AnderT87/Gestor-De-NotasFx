@@ -12,7 +12,7 @@ import java.util.List;
  * @author Admin
  */
 public class Asignaturas implements IAsignaturas {
-     private ArrayList<Asignatura> asignaturas;
+     private List<Asignatura> asignaturas;
 
     public Asignaturas() {
         asignaturas = new ArrayList<>();
@@ -50,7 +50,7 @@ public class Asignaturas implements IAsignaturas {
     }
 
     
-    public ArrayList<Asignatura> obtenerTodos() {
+    public List<Asignatura> obtenerTodos() {
         return asignaturas;
     }
 }

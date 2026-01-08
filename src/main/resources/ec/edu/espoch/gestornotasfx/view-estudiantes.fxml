@@ -97,7 +97,6 @@
                     <TableColumn fx:id="colApellido" text="Apellido" prefWidth="150"/>
                     <TableColumn fx:id="colCorreo" text="Correo Institucional" prefWidth="250"/>
                 </columns>
-                
             </TableView>
 
         </VBox>

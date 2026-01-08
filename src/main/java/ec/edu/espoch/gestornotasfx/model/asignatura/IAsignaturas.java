@@ -5,6 +5,7 @@
 package ec.edu.espoch.gestornotasfx.model.asignatura;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,5 +21,5 @@ public interface IAsignaturas {
 
     public Asignatura obtener(int codigoAsignatura);
 
-    public ArrayList<Asignatura> obtenerTodos();
+    public List<Asignatura> obtenerTodos();
 }

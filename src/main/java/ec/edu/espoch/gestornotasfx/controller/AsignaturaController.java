@@ -23,7 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 public class AsignaturaController {
 
-    private Asignaturas asignaturas = new Asignaturas();
+    private IAsignaturas asignaturas;
     private ObservableList<Asignatura> listaObservable;
 
     @FXML
@@ -56,6 +56,7 @@ public class AsignaturaController {
 
         listaObservable = FXCollections.observableArrayList();
         tablaAsignaturas.setItems(listaObservable);
+        asignaturas = new Asignaturas();
         actualizarTabla(); // Cargar datos existentes al abrir
     }
 
