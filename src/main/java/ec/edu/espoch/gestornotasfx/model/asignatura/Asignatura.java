@@ -14,18 +14,24 @@ import ec.edu.espoch.gestornotasfx.model.estudiantes.Estudiante;
 public class Asignatura {
 
     private int codigoAsignatura;
-    
+    private Docente docente;
     private String nombreAsignatura;
     private String periodo;
 
-    public Asignatura(int codigoAsignatura, String nombreAsignatura, String periodo) {
-        
+    public Asignatura(int codigoAsignatura, String nombreAsignatura, String periodo, Docente docente) {
+        this.codigoAsignatura = codigoAsignatura;
         this.nombreAsignatura = nombreAsignatura;
         this.periodo = periodo;
-        this.codigoAsignatura = codigoAsignatura;
+        this.docente = docente; // El docente que tiene la cédula (FK)
     }
 
-   
+    public Docente getDocente() {
+        return docente;
+    }
+
+    public void setDocente(Docente docente) {
+        this.docente = docente;
+    }
 
     public String getNombreAsignatura() {
         return nombreAsignatura;

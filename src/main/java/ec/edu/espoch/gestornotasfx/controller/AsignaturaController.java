@@ -8,10 +8,16 @@ import ec.edu.espoch.gestornotasfx.App;
 import ec.edu.espoch.gestornotasfx.model.asignatura.Asignatura;
 import ec.edu.espoch.gestornotasfx.model.asignatura.Asignaturas;
 import ec.edu.espoch.gestornotasfx.model.asignatura.IAsignaturas;
+import ec.edu.espoch.gestornotasfx.model.docentes.Docente;
+import ec.edu.espoch.gestornotasfx.model.docentes.Docentes;
+import ec.edu.espoch.gestornotasfx.model.docentes.IDocentes;
+import java.sql.SQLException;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -25,7 +31,8 @@ public class AsignaturaController {
 
     private IAsignaturas asignaturas;
     private ObservableList<Asignatura> listaObservable;
-
+    @FXML
+    private ComboBox<Docente> cbDocentes;
     @FXML
     private TextField txtCodigo;
     @FXML
@@ -43,48 +50,71 @@ public class AsignaturaController {
     private TableColumn<Asignatura, String> colPeriodo;
 
     // --- NAVEGACIÓN ---
-    @FXML private void menuDocentes() { App.cambiarVista("view-docentes"); }
-    @FXML private void menuAsignaturas() { App.cambiarVista("view-asignaturas"); }
-    @FXML private void menuEstudiantes() { App.cambiarVista("view-estudiantes"); }
-    @FXML private void menuAsigEstudiantes() { App.cambiarVista("view-notas"); }
+    @FXML
+    private void menuDocentes() {
+        App.cambiarVista("view-docentes");
+    }
 
     @FXML
-    public void initialize() {
+    private void menuAsignaturas() {
+        App.cambiarVista("view-asignaturas");
+    }
+
+    @FXML
+    private void menuEstudiantes() {
+        App.cambiarVista("view-estudiantes");
+    }
+
+    @FXML
+    private void menuAsigEstudiantes() {
+        App.cambiarVista("view-notas");
+    }
+
+    @FXML
+    public void initialize() throws SQLException {
         colCodigo.setCellValueFactory(new PropertyValueFactory<>("codigoAsignatura"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombreAsignatura"));
         colPeriodo.setCellValueFactory(new PropertyValueFactory<>("periodo"));
 
+        IDocentes daoDoc = new Docentes();
+        cbDocentes.setItems(FXCollections.observableArrayList(daoDoc.listar()));
+
         listaObservable = FXCollections.observableArrayList();
         tablaAsignaturas.setItems(listaObservable);
         asignaturas = new Asignaturas();
-        actualizarTabla(); // Cargar datos existentes al abrir
+        actualizarTabla();
     }
 
     @FXML
     private void agregar() {
         try {
-            if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty()) {
-                mostrarError("Por favor, llene todos los campos.");
+            Docente seleccionado = cbDocentes.getSelectionModel().getSelectedItem();
+
+            if (seleccionado == null) {
+                mostrarError("Debe seleccionar un docente.");
                 return;
             }
 
             Asignatura a = new Asignatura(
                     Integer.parseInt(txtCodigo.getText()),
                     txtNombre.getText(),
-                    txtPeriodo.getText()
+                    txtPeriodo.getText(),
+                    seleccionado
             );
 
             asignaturas.agregar(a);
-            mostrarInfo("Asignatura agregada con éxito");
+            asignaturas.actualizar(a);
+            mostrarInfo("Asignatura actualizada con éxito");
             actualizarTabla();
             limpiarCampos();
-        } catch (NumberFormatException e) {
-            mostrarError("El código debe ser un número válido.");
+
+        } catch (Exception e) {
+            mostrarError("Error: " + e.getMessage());
         }
     }
 
     @FXML
-    private void buscar() {
+    private void buscar() throws SQLException {
         try {
             if (txtCodigo.getText().isEmpty()) {
                 mostrarError("Ingrese un código para buscar.");
@@ -106,17 +136,21 @@ public class AsignaturaController {
     }
 
     @FXML
-    private void actualizar() {
+    private void actualizar() throws SQLException {
         try {
-            if (txtCodigo.getText().isEmpty()) {
-                mostrarError("Debe ingresar el código de la asignatura a actualizar.");
+            Docente seleccionado = cbDocentes.getSelectionModel().getSelectedItem();
+
+            if (seleccionado == null) {
+                mostrarError("Debe seleccionar un docente.");
                 return;
             }
 
+            // Pasamos el 'seleccionado' al constructor
             Asignatura a = new Asignatura(
                     Integer.parseInt(txtCodigo.getText()),
                     txtNombre.getText(),
-                    txtPeriodo.getText()
+                    txtPeriodo.getText(),
+                    seleccionado
             );
 
             asignaturas.actualizar(a);
@@ -129,7 +163,7 @@ public class AsignaturaController {
     }
 
     @FXML
-    private void eliminar() {
+    private void eliminar() throws SQLException {
         try {
             if (txtCodigo.getText().isEmpty()) {
                 mostrarError("Ingrese un código para eliminar.");
@@ -147,9 +181,20 @@ public class AsignaturaController {
     }
 
     private void actualizarTabla() {
-        if (asignaturas.obtenerTodos() != null) {
-            listaObservable.setAll(asignaturas.obtenerTodos());
+        try {
+            if (asignaturas != null) {
+                List<Asignatura> lista = asignaturas.obtenerTodos();
+                if (lista != null) {
+                    listaObservable.setAll(asignaturas.obtenerTodos());
+                }
+
+            }
+        } catch (SQLException e) {
+            mostrarError("No se pudo refrescar la tabla: " + e.getMessage());
+            e.printStackTrace();
+            
         }
+
     }
 
     private void limpiarCampos() {

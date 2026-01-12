@@ -23,6 +23,11 @@ public class Asigna_Estudiante {
     private double medioCiclo;
     private double finCiclo;
 
+    public Asigna_Estudiante() {
+    }
+    
+    
+
     public Asigna_Estudiante(Asignatura asignatura, Estudiante estudiantes,String fecha, double recuperacion, double promedioCiclos, double medioCiclo, double finCiclo) {
         this.asignatura = asignatura;
         this.estudiantes = estudiantes;

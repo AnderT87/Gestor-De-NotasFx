@@ -4,6 +4,7 @@
  */
 package ec.edu.espoch.gestornotasfx.model.asignatura;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,13 +14,13 @@ import java.util.List;
  */
 public interface IAsignaturas {
 
-    public void agregar(Asignatura asignatura);
+    public void agregar(Asignatura asignatura) throws SQLException;
 
-    public void actualizar(Asignatura asignaturaActualizada);
+    public void actualizar(Asignatura asignaturaActualizada) throws SQLException;
 
-    public void eliminar(int codigoAsignatura);
+    public void eliminar(int codigoAsignatura) throws SQLException;
 
-    public Asignatura obtener(int codigoAsignatura);
+    public Asignatura obtener(int codigoAsignatura) throws SQLException ;
 
-    public List<Asignatura> obtenerTodos();
+    public List<Asignatura> obtenerTodos() throws SQLException ;
 }
