@@ -6,6 +6,7 @@ package ec.edu.espoch.gestornotasfx.model.asig_estu;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,6 +21,8 @@ public interface IAsigna_Estudiantes {
     public boolean eliminar(int codEstudiante, int codAsignatura) throws SQLException;
 
     public Asigna_Estudiante obtener(int codEstudiante, int codAsignatura) throws SQLException;
+    
+    public List<Map<String, String>> consultarNotasPorId(String idEstudiante);
     
     public List<Asigna_Estudiante> obtenerTodo() throws SQLException;
 }

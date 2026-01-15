@@ -20,7 +20,9 @@ import java.util.List;
  * @author Admin
  */
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Asigna_Estudiantes implements IAsigna_Estudiantes {
 
@@ -219,4 +221,40 @@ public class Asigna_Estudiantes implements IAsigna_Estudiantes {
 
         return lista;
     }
+
+    public List<Map<String, String>> consultarNotasPorId(String idEstudiante) {
+    List<Map<String, String>> lista = new ArrayList<>();
+    String sql = "SELECT e.nombre, e.apellido, a.nombre AS asig_nom, ae.medio_ciclo, ae.fin_ciclo "
+               + "FROM estudiantes e "
+               + "INNER JOIN asignatura_estudiante ae ON e.codigo_estudiante = ae.codigo_estudiante "
+               + "INNER JOIN asignatura a ON ae.codigo_asignatura = a.codigo_asignatura "
+               + "WHERE e.codigo_estudiante = ?";
+
+    try (Connection con = Conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, idEstudiante);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Map<String, String> fila = new HashMap<>();
+            String nombreFull = rs.getString("nombre") + " " + rs.getString("apellido");
+            fila.put("nombreCompleto", nombreFull);
+            fila.put("materia", rs.getString("asig_nom"));
+            fila.put("notaUno", rs.getString("medio_ciclo"));
+            fila.put("notaDos", rs.getString("fin_ciclo"));
+            
+            // ESTO ES PARA DEPURAR:
+            System.out.println("Fila encontrada: " + nombreFull + " - " + rs.getString("asig_nom"));
+            
+            lista.add(fila);
+        }
+        
+        if (lista.isEmpty()) {
+            System.out.println("OJO: La consulta no devolvió nada para el ID: " + idEstudiante);
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Error en la consulta: " + e.getMessage());
+    }
+    return lista;
+}
 }

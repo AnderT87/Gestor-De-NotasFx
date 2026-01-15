@@ -27,7 +27,7 @@ public class App extends Application {
 
     public static void mostrarVistaPrincipal() throws Exception {
         
-        FXMLLoader loader = new FXMLLoader(App.class.getResource("/ec/edu/espoch/gestornotasfx/view-main.fxml"));
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("/ec/edu/espoch/gestornotasfx/view-seleccion.fxml"));
         Scene scene = new Scene(loader.load());
         stage.setScene(scene);
         stage.show();

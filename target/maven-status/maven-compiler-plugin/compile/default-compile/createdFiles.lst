@@ -14,6 +14,7 @@ ec\edu\espoch\gestornotasfx\model\asig_estu\Asigna_Estudiante.class
 ec\edu\espoch\gestornotasfx\controller\EstudiantesController.class
 ec\edu\espoch\gestornotasfx\controller\Asigna_EstudiantesController.class
 ec\edu\espoch\gestornotasfx\model\Stack.class
+ec\edu\espoch\gestornotasfx\controller\InformacionController.class
 ec\edu\espoch\gestornotasfx\controller\DocentesController.class
 ec\edu\espoch\gestornotasfx\model\estudiantes\Estudiantes.class
 ec\edu\espoch\gestornotasfx\model\asig_estu\Asigna_Estudiantes.class

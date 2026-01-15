@@ -79,6 +79,18 @@ public class VistaGeneralController {
         App.cambiarVista("view-notas");
     }
 
+    @FXML
+    private void volverMenuPrincipal() {
+
+        App.cambiarVista("view-seleccion");
+    }
+    
+    @FXML
+    private void menuInformacion() {
+
+        App.cambiarVista("view-informacion");
+    }
+    
     private void mostrarError(String msg) {
         new Alert(Alert.AlertType.ERROR, msg).showAndWait();
     }
