@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/11"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="ec.edu.espoch.gestornotasfx.controller.LoginController"
+           style="-fx-background-color: linear-gradient(to bottom right, #0A1F44, #0D6EFD);">
+
+    <VBox alignment="CENTER"
+          spacing="16"
+          prefWidth="320"
+          style="
+            -fx-background-color: #F8FAFF;
+            -fx-padding: 28;
+            -fx-background-radius: 18;
+            -fx-effect: dropshadow(three-pass-box, rgba(13,110,253,0.30), 18, 0, 0, 8);
+          ">
+
+        <!-- TÍTULO -->
+        <Label text="INICIAR SESIÓN" textFill="#0A1F44">
+            <font>
+                <Font size="20" name="System Bold"/>
+            </font>
+        </Label>
+
+        <Label text="Gestor de Notas"
+               textFill="#4A5F8A"
+               style="-fx-font-size: 13;"/>
+
+        <Separator prefWidth="220"/>
+
+        <!-- USUARIO -->
+        <VBox spacing="4" alignment="CENTER_LEFT" prefWidth="0">
+            <Label text="Usuario" textFill="#0A1F44" style="-fx-font-size: 12;"/>
+            <TextField fx:id="txtUsuario"
+                       promptText="Usuario"
+                       prefHeight="34"
+                       style="
+                         -fx-font-size: 13;
+                         -fx-background-radius: 7;
+                         -fx-border-radius: 7;
+                         -fx-border-color: #0D6EFD;
+                       "/>
+        </VBox>
+
+        <!-- CLAVE -->
+        <VBox spacing="4" alignment="CENTER_LEFT" prefWidth="220">
+            <Label text="Clave" textFill="#0A1F44" style="-fx-font-size: 12;"/>
+            <PasswordField fx:id="txtClave"
+                           promptText="Clave"
+                           prefHeight="34"
+                           style="
+                             -fx-font-size: 13;
+                             -fx-background-radius: 7;
+                             -fx-border-radius: 7;
+                             -fx-border-color: #0D6EFD;
+                           "/>
+        </VBox>
+
+        <!-- BOTÓN -->
+        <Button text="INGRESAR"
+                onAction="#login"
+                prefHeight="38"
+                prefWidth="220"
+                style="
+                    -fx-background-color: linear-gradient(to right, #0B1C6D, #0D6EFD);
+                    -fx-text-fill: white;
+                    -fx-font-size: 14;
+                    -fx-font-weight: bold;
+                    -fx-background-radius: 10;
+                    -fx-cursor: hand;
+                "/>
+
+    </VBox>
+</StackPane>
+
+
+

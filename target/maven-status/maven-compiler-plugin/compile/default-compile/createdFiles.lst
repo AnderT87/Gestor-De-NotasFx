@@ -1,9 +1,11 @@
 ec\edu\espoch\gestornotasfx\model\estudiantes\IEstudiantes.class
 ec\edu\espoch\gestornotasfx\model\asig_estu\NotaTable.class
 ec\edu\espoch\gestornotasfx\model\Node.class
+ec\edu\espoch\gestornotasfx\model\Usuarios.class
 ec\edu\espoch\gestornotasfx\model\asignatura\IAsignaturas.class
 ec\edu\espoch\gestornotasfx\App.class
 ec\edu\espoch\gestornotasfx\model\asig_estu\IAsigna_Estudiantes.class
+ec\edu\espoch\gestornotasfx\model\IUsuarios.class
 ec\edu\espoch\gestornotasfx\model\estudiantes\Estudiante.class
 ec\edu\espoch\gestornotasfx\Conexion.class
 module-info.class
@@ -16,8 +18,10 @@ ec\edu\espoch\gestornotasfx\controller\EstudiantesController.class
 ec\edu\espoch\gestornotasfx\controller\Asigna_EstudiantesController.class
 ec\edu\espoch\gestornotasfx\model\Stack.class
 ec\edu\espoch\gestornotasfx\controller\InformacionController.class
+ec\edu\espoch\gestornotasfx\controller\LoginController.class
 ec\edu\espoch\gestornotasfx\controller\DocentesController.class
 ec\edu\espoch\gestornotasfx\model\estudiantes\Estudiantes.class
+ec\edu\espoch\gestornotasfx\model\Usuario.class
 ec\edu\espoch\gestornotasfx\model\asig_estu\Asigna_Estudiantes.class
 ec\edu\espoch\gestornotasfx\controller\AsignaturaController.class
 ec\edu\espoch\gestornotasfx\model\docentes\IDocentes.class

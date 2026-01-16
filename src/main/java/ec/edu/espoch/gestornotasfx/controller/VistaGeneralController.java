@@ -23,27 +23,6 @@ import javafx.scene.control.TextField;
  */
 public class VistaGeneralController {
 
-    // ====== CAMPOS ======
-    @FXML
-    private TextField txtPeriodo;
-
-    @FXML
-    private TableView<Asigna_Estudiante> tabla;
-    @FXML
-    private TableColumn<Asigna_Estudiante, String> colDocente;
-    @FXML
-    private TableColumn<Asigna_Estudiante, String> colAsignatura;
-    @FXML
-    private TableColumn<Asigna_Estudiante, String> colEstudiante;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Double> colRecuperacion;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Double> colMedio;
-    @FXML
-    private TableColumn<Asigna_Estudiante, Double> colFinal;
-
-    private Asigna_Estudiantes modelo;
-
     @FXML
     public void initialize() {
         try {
@@ -59,34 +38,16 @@ public class VistaGeneralController {
 
     @FXML
     private void menuDocentes() {
-
-        App.cambiarVista("view-docentes");
+        App.setPerfilSeleccionado("DOCENTE");
+        App.cambiarVista("view-login");
     }
 
-    @FXML
-    private void menuAsignaturas() {
-        App.cambiarVista("view-asignaturas");
-    }
-
-    @FXML
-    private void menuEstudiantes() {
-        App.cambiarVista("view-estudiantes");
-    }
-
-    @FXML
-    private void menuAsigEstudiantes() {
-
-        App.cambiarVista("view-notas");
-    }
-
-
-    
     @FXML
     private void menuInformacion() {
-
-        App.cambiarVista("view-informacion");
+        App.setPerfilSeleccionado("ESTUDIANTE");
+        App.cambiarVista("view-login");
     }
-    
+
     private void mostrarError(String msg) {
         new Alert(Alert.AlertType.ERROR, msg).showAndWait();
     }
