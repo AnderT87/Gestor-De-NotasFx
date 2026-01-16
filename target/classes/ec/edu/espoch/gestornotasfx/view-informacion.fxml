@@ -4,63 +4,112 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espoch.gestornotasfx.controller.InformacionController">
-    
+<BorderPane prefHeight="600.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/13"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ec.edu.espoch.gestornotasfx.controller.InformacionController">
+
+    <!-- CABECERA -->
     <top>
         <VBox alignment="CENTER" style="-fx-background-color: #0D6EFD; -fx-padding: 20;">
             <children>
                 <Label text="CONSULTA DE CALIFICACIONES" textFill="WHITE">
                     <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="24.0"/>
                     </font>
                 </Label>
             </children>
         </VBox>
     </top>
 
+    <!-- CONTENIDO -->
     <center>
-        <VBox alignment="TOP_CENTER" spacing="20" style="-fx-padding: 30; -fx-background-color: #F4F7FB;">
+        <VBox alignment="TOP_CENTER" spacing="20"
+              style="-fx-padding: 30; -fx-background-color: #F4F7FB;">
             <children>
+
+                <!-- BUSQUEDA -->
                 <HBox alignment="CENTER" spacing="15">
                     <children>
                         <Label text="Ingrese su ID de Estudiante:">
                             <font>
-                                <Font size="16.0" />
+                                <Font size="16.0"/>
                             </font>
                         </Label>
-                        <TextField fx:id="txtIdBusqueda" prefWidth="200.0" promptText="Ej: 10" style="-fx-font-size: 14;" />
-                        <Button onAction="#buscarNotasEstudiante" style="-fx-background-color: #0B1C6D; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="BUSCAR NOTAS" />
+
+                        <TextField fx:id="txtCodigo"
+                                   prefWidth="200.0"
+                                   promptText="Ej: 10"
+                                   style="-fx-font-size: 14;"/>
+
+                        <Button text="BUSCAR NOTAS"
+                                onAction="#buscarPorCodigo"
+                                style="-fx-background-color: #0B1C6D;
+                                       -fx-text-fill: white;
+                                       -fx-font-weight: bold;
+                                       -fx-cursor: hand;"/>
                     </children>
                 </HBox>
 
-                <Separator maxWidth="700" />
+                <Separator maxWidth="700"/>
 
-                <Label fx:id="lblBienvenida" text="Esperando consulta..." textFill="#0B1C6D">
+                <Label fx:id="lblBienvenida"
+                       text="Esperando consulta..."
+                       textFill="#0B1C6D">
                     <font>
-                        <Font name="System Italic" size="18.0" />
+                        <Font name="System Italic" size="18.0"/>
                     </font>
                 </Label>
 
-                <TableView fx:id="tablaDeNotas" prefHeight="350.0" prefWidth="800.0">
+                <!-- TABLA -->
+                <TableView fx:id="tablaNotas"
+                           prefHeight="350.0"
+                           prefWidth="800.0">
+
                     <columns>
-                        <TableColumn fx:id="colNombreEstudiante" prefWidth="200.0" text="ESTUDIANTE" />
-                        <TableColumn fx:id="colAsignatura" prefWidth="250.0" text="ASIGNATURA" />
-                        <TableColumn fx:id="colNotaUno" prefWidth="120.0" text="MEDIO CICLO" />
-                        <TableColumn fx:id="colNotaDos" prefWidth="120.0" text="FIN DE CICLO" />
-    
+                        <TableColumn fx:id="colEstudiante"
+                                     prefWidth="200.0"
+                                     text="ESTUDIANTE"/>
+
+                        <TableColumn fx:id="colAsignatura"
+                                     prefWidth="230.0"
+                                     text="ASIGNATURA"/>
+
+                        <TableColumn fx:id="colMedio"
+                                     prefWidth="120.0"
+                                     text="MEDIO CICLO"/>
+
+                        <TableColumn fx:id="colFin"
+                                     prefWidth="120.0"
+                                     text="FIN DE CICLO"/>
+                         <TableColumn fx:id="colRecuperación"
+                                     prefWidth="120.0"
+                                     text="RECUPERACION"/>
+                        <TableColumn fx:id="colPromedio"
+                                     prefWidth="120.0"
+                                     text="PROMEDIO"/>
+                        
+
+
                     </columns>
-                    
+
                 </TableView>
             </children>
         </VBox>
     </center>
 
+    <!-- PIE -->
     <bottom>
-        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 15; -fx-background-color: #E8E8E8;">
+        <HBox alignment="CENTER_RIGHT"
+              style="-fx-padding: 15; -fx-background-color: #E8E8E8;">
             <children>
-                <Button onAction="#volverMenuPrincipal" style="-fx-background-color: #6c757d; -fx-text-fill: white;" text="Volver al Inicio" />
+                <Button text="Volver al Inicio"
+                        onAction="#volverMenuPrincipal"
+                        style="-fx-background-color: #6c757d;
+                               -fx-text-fill: white;"/>
             </children>
         </HBox>
     </bottom>
 
 </BorderPane>
+

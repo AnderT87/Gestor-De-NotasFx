@@ -222,39 +222,42 @@ public class Asigna_Estudiantes implements IAsigna_Estudiantes {
         return lista;
     }
 
-    public List<Map<String, String>> consultarNotasPorId(String idEstudiante) {
-    List<Map<String, String>> lista = new ArrayList<>();
-    String sql = "SELECT e.nombre, e.apellido, a.nombre AS asig_nom, ae.medio_ciclo, ae.fin_ciclo "
-               + "FROM estudiantes e "
-               + "INNER JOIN asignatura_estudiante ae ON e.codigo_estudiante = ae.codigo_estudiante "
-               + "INNER JOIN asignatura a ON ae.codigo_asignatura = a.codigo_asignatura "
-               + "WHERE e.codigo_estudiante = ?";
+    @Override
+    public List<Asigna_Estudiante> consultarNotasPorId(String idEstudiante) {
+        List<Asigna_Estudiante> lista = new ArrayList<>();
+        String sql = "SELECT e.nombre, e.apellido, a.nombre AS asig_nom, ae.medio_ciclo, ae.fin_ciclo,ae.recuperacion "
+                + "FROM estudiantes e "
+                + "INNER JOIN asignatura_estudiante ae ON e.codigo_estudiante = ae.codigo_estudiante "
+                + "INNER JOIN asignatura a ON ae.codigo_asignatura = a.codigo_asignatura "
+                + "WHERE e.codigo_estudiante = ?";
 
-    try (Connection con = Conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setString(1, idEstudiante);
-        ResultSet rs = ps.executeQuery();
+        try (Connection con = Conexion.getConexion(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, idEstudiante);
+            ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            Map<String, String> fila = new HashMap<>();
-            String nombreFull = rs.getString("nombre") + " " + rs.getString("apellido");
-            fila.put("nombreCompleto", nombreFull);
-            fila.put("materia", rs.getString("asig_nom"));
-            fila.put("notaUno", rs.getString("medio_ciclo"));
-            fila.put("notaDos", rs.getString("fin_ciclo"));
-            
-            // ESTO ES PARA DEPURAR:
-            System.out.println("Fila encontrada: " + nombreFull + " - " + rs.getString("asig_nom"));
-            
-            lista.add(fila);
+            while (rs.next()) {
+                Estudiante est = new Estudiante();
+                est.setNombreEstudiante(rs.getString("nombre"));
+                est.setApellidoEstudiantes(rs.getString("apellido"));
+
+                Asignatura asig = new Asignatura();
+                asig.setNombreAsignatura(rs.getString("asig_nom"));
+
+                Asigna_Estudiante nota = new Asigna_Estudiante();
+                nota.setEstudiantes(est);
+                nota.setAsignatura(asig);
+
+                // Usar getFloat directamente para evitar conversiones raras
+                nota.setMedioCiclo(rs.getFloat("medio_ciclo"));
+                nota.setFinCiclo(rs.getFloat("fin_ciclo"));
+                nota.setRecuperacion(rs.getFloat("recuperacion"));
+
+                lista.add(nota);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error en DAO: " + e.getMessage());
         }
-        
-        if (lista.isEmpty()) {
-            System.out.println("OJO: La consulta no devolvió nada para el ID: " + idEstudiante);
-        }
-
-    } catch (SQLException e) {
-        System.err.println("Error en la consulta: " + e.getMessage());
+        return lista;
     }
-    return lista;
-}
+
 }

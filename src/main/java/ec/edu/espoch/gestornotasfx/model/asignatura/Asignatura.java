@@ -18,6 +18,11 @@ public class Asignatura {
     private String nombreAsignatura;
     private String periodo;
 
+    public Asignatura() {
+    }
+    
+    
+
     public Asignatura(int codigoAsignatura, String nombreAsignatura, String periodo, Docente docente) {
         this.codigoAsignatura = codigoAsignatura;
         this.nombreAsignatura = nombreAsignatura;

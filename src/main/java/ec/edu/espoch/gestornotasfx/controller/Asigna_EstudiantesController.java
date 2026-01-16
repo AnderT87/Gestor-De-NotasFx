@@ -41,7 +41,7 @@ public class Asigna_EstudiantesController {
     @FXML
     private TableView<Asigna_Estudiante> tablaAsignaciones;
     @FXML
-    private TableColumn<Asigna_Estudiante, String> colEstudiante, colAsignatura;
+    private TableColumn<Asigna_Estudiante, String> colEstudiante, colAsignatura, colRecu;
     @FXML
     private TableColumn<Asigna_Estudiante, Double> colMedio, colFin, colPromedio;
 
@@ -80,6 +80,7 @@ public class Asigna_EstudiantesController {
         colMedio.setCellValueFactory(new PropertyValueFactory<>("medioCiclo"));
         colFin.setCellValueFactory(new PropertyValueFactory<>("finCiclo"));
         colPromedio.setCellValueFactory(new PropertyValueFactory<>("promedioCiclos"));
+        colRecu.setCellValueFactory(new PropertyValueFactory<>("recuperacion"));
 
         // 3. Vincular lista a la tabla y cargar datos iniciales de la BD
         tablaAsignaciones.setItems(masterData);
@@ -148,6 +149,7 @@ public class Asigna_EstudiantesController {
             String rStr = txtRecuperacion.getText();
 
             // Creamos el objeto para la lista local (opcional si refrescas desde BD)
+            
             double m = mStr.isEmpty() ? 0 : Double.parseDouble(mStr);
             double f = fStr.isEmpty() ? 0 : Double.parseDouble(fStr);
             double r = rStr.isEmpty() ? 0 : Double.parseDouble(rStr);

@@ -1,4 +1,5 @@
 ec\edu\espoch\gestornotasfx\model\estudiantes\IEstudiantes.class
+ec\edu\espoch\gestornotasfx\model\asig_estu\NotaTable.class
 ec\edu\espoch\gestornotasfx\model\Node.class
 ec\edu\espoch\gestornotasfx\model\asignatura\IAsignaturas.class
 ec\edu\espoch\gestornotasfx\App.class

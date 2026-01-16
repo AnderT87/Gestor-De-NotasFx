@@ -26,7 +26,7 @@
             <Button onAction="#menuDocentes" prefWidth="160" style="-fx-cursor: hand;" text="DOCENTES" />
             <Button onAction="#menuAsignaturas" prefWidth="160" style="-fx-background-color: #0B1C6D; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="ASIGNATURAS" />
             <Button onAction="#menuEstudiantes" prefWidth="160" style="-fx-cursor: hand;" text="ESTUDIANTES" />
-            <Button onAction="#menuAsigEstudiantes" prefWidth="160" style="-fx-cursor: hand;" text="ASIG. ESTUDIANTES" />
+            <Button onAction="#menuAsigEstudiantes" prefWidth="160" style="-fx-cursor: hand;" text="NOTAS" />
         </VBox>
     </left>
 

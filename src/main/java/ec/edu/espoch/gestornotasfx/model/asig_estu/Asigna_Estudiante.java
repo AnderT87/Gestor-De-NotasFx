@@ -16,7 +16,7 @@ public class Asigna_Estudiante {
 
     private Asignatura asignatura;
     private Estudiante estudiantes;
-    
+
     private String fecha;
     private double recuperacion;
     private double promedioCiclos;
@@ -25,10 +25,8 @@ public class Asigna_Estudiante {
 
     public Asigna_Estudiante() {
     }
-    
-    
 
-    public Asigna_Estudiante(Asignatura asignatura, Estudiante estudiantes,String fecha, double recuperacion, double promedioCiclos, double medioCiclo, double finCiclo) {
+    public Asigna_Estudiante(Asignatura asignatura, Estudiante estudiantes, String fecha, double recuperacion, double promedioCiclos, double medioCiclo, double finCiclo) {
         this.asignatura = asignatura;
         this.estudiantes = estudiantes;
         this.fecha = fecha;
@@ -38,16 +36,19 @@ public class Asigna_Estudiante {
         this.finCiclo = finCiclo;
     }
 
+    public double calcularPromedio() {
+        double base = (medioCiclo + finCiclo) / 2;
+        return recuperacion > base ? recuperacion : base;
+    }
+
     public double getPromedioCiclos() {
-        return promedioCiclos;
+        return calcularPromedio();
     }
 
     public void setPromedioCiclos(double promedioCiclos) {
         this.promedioCiclos = promedioCiclos;
     }
 
-    
-    
     public Asignatura getAsignatura() {
         return asignatura;
     }

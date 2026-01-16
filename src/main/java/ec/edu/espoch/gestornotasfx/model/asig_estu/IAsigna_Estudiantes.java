@@ -14,15 +14,19 @@ import java.util.Map;
  */
 public interface IAsigna_Estudiantes {
 
-    public boolean agregar(Asigna_Estudiante nueva, String strMedio, String strFin, String strRecu) throws SQLException; ;
+    public boolean agregar(Asigna_Estudiante nueva, String strMedio, String strFin, String strRecu) throws SQLException;
+
+    ;
 
    public boolean actualizar(Asigna_Estudiante aeActualizada, String strMedio, String strFin, String strRecu) throws SQLException;
 
     public boolean eliminar(int codEstudiante, int codAsignatura) throws SQLException;
 
     public Asigna_Estudiante obtener(int codEstudiante, int codAsignatura) throws SQLException;
+
+    public List<Asigna_Estudiante> consultarNotasPorId(String idEstudiante);
+
     
-    public List<Map<String, String>> consultarNotasPorId(String idEstudiante);
-    
+
     public List<Asigna_Estudiante> obtenerTodo() throws SQLException;
 }

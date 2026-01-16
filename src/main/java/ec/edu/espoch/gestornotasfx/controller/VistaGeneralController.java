@@ -79,11 +79,7 @@ public class VistaGeneralController {
         App.cambiarVista("view-notas");
     }
 
-    @FXML
-    private void volverMenuPrincipal() {
 
-        App.cambiarVista("view-seleccion");
-    }
     
     @FXML
     private void menuInformacion() {

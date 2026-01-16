@@ -17,6 +17,10 @@ public class Estudiante  {
     private String nombreEstudiante;
     private String apellidoEstudiantes;
     private String correoInstEstudinate;
+    
+    public Estudiante() {
+        
+    }
 
     public Estudiante(int codigoEstudiante, String nombreEstudiante, String apellidoEstudiantes, String correoInstEstudinate) {
         this.codigoEstudiante = codigoEstudiante;
@@ -24,6 +28,8 @@ public class Estudiante  {
         this.apellidoEstudiantes = apellidoEstudiantes;
         this.correoInstEstudinate = correoInstEstudinate;
     }
+
+    
 
     public int getCodigoEstudiante() {
         return codigoEstudiante;
